@@ -29,6 +29,13 @@ def save_website(domain, username, site_content):
             else:
                 return "Access denied."
 
+@client.request
+def remove_website(username, domain):
+    if username == session.get_linked_user():
+        with open("websites.json", "r+") as file:
+            file_cont = json.load(file)
+            file_cont[domain] = None
+            return "Website successfully removed by project owner!"
 
 @client.request()
 def load_website(domain):
